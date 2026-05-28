@@ -1,3 +1,6 @@
+CREATE DATABASE GestaoPortifolio;
+USE GestaoPortifolio;
+
 CREATE TABLE INVESTIDOR (
     id_investidor INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
