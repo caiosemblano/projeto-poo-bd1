@@ -1,21 +1,3 @@
-Vou começar lendo os arquivos do projeto para entender o contexto antes de criar a spec.
-
-Viewed requisitosPOO.md:1-96
-Viewed requisitosBD1.md:1-25
-Listed directory projeto-poo-bd1
-
-Há um arquivo SQL e um documento Word. Vou ler o SQL e tentar acessar o .docx para entender o modelo de dados e o tema do projeto.
-
-Viewed config-inicial.sql:1-175
-Viewed README.md:1-2
-
-Tenho tudo que preciso. Agora vou criar uma spec detalhada completa como artefato.
-
-Created spec.md
-
-A spec está pronta. Aqui está um resumo do que foi mapeado:
-
----
 
 ## O que foi levantado
 
