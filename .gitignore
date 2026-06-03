@@ -16,3 +16,7 @@ out/
 
 # Editor-based HTTP Client requests
 /httpRequests/
+
+# Compilados do Maven e do IntelliJ
+target/
+out/
