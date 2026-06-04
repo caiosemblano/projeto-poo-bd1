@@ -1,4 +1,4 @@
-CREATE DATABASE GestaoPortifolio;
+CREATE DATABASE IF NOT EXISTS GestaoPortifolio;
 USE GestaoPortifolio;
 
 CREATE TABLE INVESTIDOR (
@@ -129,11 +129,11 @@ INSERT INTO CARTEIRA_ATIVO (id_carteira, id_ativo, quantidade, valor_atual) VALU
 CREATE ROLE role_gestor_investimentos;
 GRANT SELECT, INSERT, UPDATE ON *.* TO role_gestor_investimentos;
 
-CREATE USER 'admin_alpha'@'localhost' IDENTIFIED BY 'AlphaSigmaRedPill';
-CREATE USER 'admin_beta'@'localhost' IDENTIFIED BY 'Betinha67';
+CREATE USER IF NOT EXISTS 'admin_alpha'@'%' IDENTIFIED BY 'AlphaSigmaRedPill';
+CREATE USER IF NOT EXISTS 'admin_beta'@'%' IDENTIFIED BY 'Betinha67';
 
-GRANT role_gestor_investimentos TO 'admin_alpha'@'localhost';
-GRANT role_gestor_investimentos TO 'admin_beta'@'localhost';
+GRANT role_gestor_investimentos TO 'admin_alpha'@'%';
+GRANT role_gestor_investimentos TO 'admin_beta'@'%';
 
 CREATE OR REPLACE VIEW vw_resumo_portfolio AS 
 SELECT 

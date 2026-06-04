@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: gestaoportifolio_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: GestaoPortifolio
+    ports:
+      - "3307:3306"
+    volumes:
+      # Volume local para persistência dos dados
+      - mysql_data:/var/lib/mysql
+      # Script de inicialização executado na primeira vez
+      - ./config-inicial.sql:/docker-entrypoint-initdb.d/config-inicial.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  mysql_data:
+    driver: local

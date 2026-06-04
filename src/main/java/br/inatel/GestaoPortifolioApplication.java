@@ -1,5 +1,5 @@
 package br.inatel;
-
+import br.inatel.ui.MenuPrincipal;
 
 public class GestaoPortifolioApplication {
     public static void main(String[] args) {
