@@ -10,6 +10,10 @@ public abstract class Ativo {
     private String descricao;
     private LocalDate dataListagem;
 
+    public Ativo() {}
+
+    public abstract String descricaoResumida();
+
     public int getIdAtivo() {
         return idAtivo;
     }
@@ -57,7 +61,4 @@ public abstract class Ativo {
     public void setDataListagem(LocalDate dataListagem) {
         this.dataListagem = dataListagem;
     }
-
-    public abstract String descricaoResumida();
-
 }
