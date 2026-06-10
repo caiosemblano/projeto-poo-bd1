@@ -12,7 +12,7 @@
 
         @Override
         public void inserir(Ativo ativo) {
-            String sql = "INSERT INTO ativo (tipo_ativo, simbolo, nome_ativo, descricao, data_listagem) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO ATIVO (tipo_ativo, simbolo, nome_ativo, descricao, data_listagem) VALUES (?, ?, ?, ?, ?)";
             try (Connection connection = ConnectionFactory.getConnection();
                  PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -35,7 +35,7 @@
 
         @Override
         public Ativo buscarPorId(Integer id) {
-            String sql = "SELECT * FROM ativo WHERE id_ativo = ?";
+            String sql = "SELECT * FROM ATIVO WHERE id_ativo = ?";
             try (Connection connection = ConnectionFactory.getConnection();
                  PreparedStatement pst = connection.prepareStatement(sql)){
                 pst.setInt(1, id);
@@ -52,7 +52,7 @@
         }
 
         public Ativo buscarPorSimbolo(String simbolo) {
-            String sql = "SELECT * FROM ativo WHERE simbolo = ?";
+            String sql = "SELECT * FROM ATIVO WHERE simbolo = ?";
             try(Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement pst = connection.prepareStatement(sql)){
                 pst.setString(1, simbolo);
@@ -71,7 +71,7 @@
         @Override
         public List<Ativo> listarTodos() {
             List<Ativo> ativos = new ArrayList<>();
-            String sql = "SELECT * FROM ativo";
+            String sql = "SELECT * FROM ATIVO";
             try(Connection connection = ConnectionFactory.getConnection();
             PreparedStatement pst = connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery()) {
@@ -86,7 +86,7 @@
 
         @Override
         public void atualizar(Ativo ativo) {
-            String sql = "UPDATE ativo SET nome_ativo=?, descricao=? WHERE id_ativo=?";
+            String sql = "UPDATE ATIVO SET nome_ativo=?, descricao=? WHERE id_ativo=?";
             try(Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
                 pst.setString(1, ativo.getNomeAtivo());
@@ -100,7 +100,7 @@
 
         @Override
         public void deletar(Integer id) {
-            String sql = "DELETE FROM ativo WHERE id_ativo = ?";
+            String sql = "DELETE FROM ATIVO WHERE id_ativo = ?";
             try(Connection connection = ConnectionFactory.getConnection();
                 PreparedStatement pst = connection.prepareStatement(sql)){
                 pst.setInt(1, id);
