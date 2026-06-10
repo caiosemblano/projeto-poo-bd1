@@ -58,6 +58,30 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
         return null;
     }
 
+    public Carteira buscarPorNome(String nome_carteira) {
+        String sql = "SELECT * FROM CARTEIRA WHERE nome_carteira = ?";
+        try{
+            pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst.setString(1, nome_carteira);
+
+            try (ResultSet rs = pst.executeQuery()){
+                if(rs.next()){
+                    Carteira carteira = new Carteira();
+                    carteira.setIdCarteira(rs.getInt("id_carteira"));
+                    carteira.setNomeCarteira(rs.getString("nome_carteira"));
+                    carteira.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
+                    carteira.setDescricao(rs.getString("descricao"));
+                    carteira.setValorTotalInvestido(rs.getBigDecimal("valor_total_investido"));
+                    return carteira;
+
+                }
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
     @Override
     public List<Carteira> listarTodos() {
         List<Carteira> carteiras = new ArrayList<>();
