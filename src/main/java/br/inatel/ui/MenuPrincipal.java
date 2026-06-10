@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
-    private final Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
     public void exibirMenu() {
         int opcao = -1;
