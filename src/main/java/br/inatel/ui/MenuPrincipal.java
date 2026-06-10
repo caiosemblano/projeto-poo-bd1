@@ -1,9 +1,67 @@
 package br.inatel.ui;
 
+import java.util.Scanner;
+
 public class MenuPrincipal {
 
+    private final Scanner scanner = new Scanner(System.in);
+
     public void exibirMenu() {
-        
-        
+        int opcao = -1;
+
+        do {
+            System.out.println("\n=== GESTÃO DE PORTFÓLIO DE INVESTIMENTOS ===");
+            System.out.println("1. Investidores");
+            System.out.println("2. Carteiras");
+            System.out.println("3. Ativos");
+            System.out.println("4. Transações");
+            System.out.println("5. Histórico de Preços");
+            System.out.println("6. Objetivos");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    MenuInvestidor investidor = new MenuInvestidor();
+                    investidor.exibirMenu();
+                    break;
+
+                case 2:
+                    MenuCarteira carteira = new MenuCarteira();
+                    carteira.exibirMenu();
+                    break;
+
+                case 3:
+                    MenuAtivo ativos = new MenuAtivo();
+                    ativos.exibirMenu();
+                    break;
+
+                case 4:
+                    MenuTransacao transacao = new MenuTransacao();
+                    transacao.exibirMenu();
+                    break;
+
+                case 5:
+                    MenuHistorico historico = new MenuHistorico();
+                    historico.exibirMenu();
+                    break;
+
+                case 6:
+                    MenuObjetivo objetivo = new MenuObjetivo();
+                    objetivo.exibirMenu();
+                    break;
+
+                case 0:
+                    System.out.println("Saindo do sistema... Obrigado!");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
+
+        } while (opcao != 0);
     }
 }
