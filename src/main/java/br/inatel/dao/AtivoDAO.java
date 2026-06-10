@@ -32,6 +32,7 @@
                 System.out.println("Erro ao inserir ativo: " + e.getMessage());
             }
         }
+
         @Override
         public Ativo buscarPorId(Integer id) {
             String sql = "SELECT * FROM ativo WHERE id_ativo = ?";
@@ -41,25 +42,54 @@
 
                 try (ResultSet rs = pst.executeQuery()) {
                     if(rs.next()) {
-                        return mapearativo(rs);
+                        return mapearAtivo(rs);
                     }
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Erro ao buscar o ativo: " + e.getMessage(), e);
+            }
+            return null;
+        }
+
+        public Ativo buscarPorSimbolo(String simbolo) {
+            String sql = "SELECT * FROM ativo WHERE simbolo = ?";
+            try(Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement pst = connection.prepareStatement(sql)){
+                pst.setString(1, simbolo);
+
+                try (ResultSet rs = pst.executeQuery()){
+                    if(rs.next()) {
+                        return mapearAtivo(rs);
+                    }
+                }
+            }catch (SQLException e){
+                System.out.println("Erro ao buscar ativo por símbolo: " + e.getMessage());
             }
             return null;
         }
 
         @Override
         public List<Ativo> listarTodos() {
+            List<Ativo> ativos = new ArrayList<>();
+            String sql = "SELECT * FROM ativo";
+            try(Connection connection = ConnectionFactory.getConnection();
+            PreparedStatement pst = connection.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    ativos.add(mapearAtivo(rs));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException("Erro ao listar ativos: " + e.getMessage(), e);
+            }
+            return ativos;
         }
 
         @Override
         public void atualizar(Ativo ativo) {
-            String sql = "UPDATE ativo SET nome_ativo=?, descricao=? WHERE id=?";
+            String sql = "UPDATE ativo SET nome_ativo=?, descricao=? WHERE id_ativo=?";
             try(Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement pst = connection.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)){
-                pst.setString(1, ativo.getTipoAtivo());
+                PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+                pst.setString(1, ativo.getNomeAtivo());
                 pst.setString(2, ativo.getDescricao());
                 pst.setInt(3, ativo.getIdAtivo());
                 pst.executeUpdate();
@@ -69,10 +99,18 @@
         }
 
         @Override
-        public void deletar(Integer integer) {
-
+        public void deletar(Integer id) {
+            String sql = "DELETE FROM ativo WHERE id_ativo = ?";
+            try(Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement pst = connection.prepareStatement(sql)){
+                pst.setInt(1, id);
+                pst.executeUpdate();
+            }catch (SQLException e) {
+                System.out.println("Erro ao deletar ativo: " + e.getMessage());
+            }
         }
-        private Ativo mapearativo(ResultSet rs) throws SQLException {
+
+        private Ativo mapearAtivo(ResultSet rs) throws SQLException {
             String tipo = rs.getString("tipo_ativo");
             Ativo ativo = switch (tipo) {
                 case "Acao" -> new Acao();
