@@ -12,7 +12,7 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
 
     @Override
     public void inserir(Carteira carteira) {
-        String sql = "INSERT INTO carteira (id_investidor, nome_carteira, data_criacao, descricao, valor_total_investido) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CARTEIRA (id_investidor, nome_carteira, data_criacao, descricao, valor_total_investido) VALUES (?, ?, ?, ?, ?)";
         try {
             pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -35,7 +35,7 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
 
     @Override
     public Carteira buscarPorId(Integer id_carteira) {
-        String sql = "SELECT * FROM carteira WHERE id_carteira = ?";
+        String sql = "SELECT * FROM CARTEIRA WHERE id_carteira = ?";
         try {
             pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, id_carteira);
@@ -61,7 +61,7 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
     @Override
     public List<Carteira> listarTodos() {
         List<Carteira> carteiras = new ArrayList<>();
-        String sql = "SELECT * FROM carteira";
+        String sql = "SELECT * FROM CARTEIRA";
         try {
             pst = connection.prepareStatement(sql);
             try (ResultSet rs = pst.executeQuery()) {
@@ -83,7 +83,7 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
 
     @Override
     public void atualizar(Carteira carteira) {
-        String sql = "UPDATE carteira SET id_investidor = ?, nome_carteira = ?, data_criacao = ?, descricao = ?, valor_total_investido = ? WHERE id_carteira = ?";
+        String sql = "UPDATE CARTEIRA SET id_investidor = ?, nome_carteira = ?, data_criacao = ?, descricao = ?, valor_total_investido = ? WHERE id_carteira = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, carteira.getInvestidor().getIdInvestidor());
@@ -100,7 +100,7 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
 
     @Override
     public void deletar(Integer id_carteira) {
-        String sql = "DELETE FROM carteira WHERE id_carteira = ?";
+        String sql = "DELETE FROM CARTEIRA WHERE id_carteira = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id_carteira);

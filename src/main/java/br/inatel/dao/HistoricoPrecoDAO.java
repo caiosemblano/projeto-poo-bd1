@@ -13,7 +13,7 @@ public class HistoricoPrecoDAO implements Repositorio<HistoricoPreco, Integer> {
 
     @Override
     public void inserir(HistoricoPreco historico) {
-        String sql = "INSERT INTO historico_preco (id_ativo, data, preco_abertura, preco_fechamento, preco_maximo, preco_minimo, volume_negociado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO HISTORICO_PRECO (id_ativo, data, preco_abertura, preco_fechamento, preco_maximo, preco_minimo, volume_negociado) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, historico.getAtivo().getIdAtivo());
@@ -37,7 +37,7 @@ public class HistoricoPrecoDAO implements Repositorio<HistoricoPreco, Integer> {
 
     @Override
     public HistoricoPreco buscarPorId(Integer id) {
-        String sql = "SELECT * FROM historico_preco WHERE id_historico = ?";
+        String sql = "SELECT * FROM HISTORICO_PRECO WHERE id_historico = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -55,7 +55,7 @@ public class HistoricoPrecoDAO implements Repositorio<HistoricoPreco, Integer> {
     @Override
     public List<HistoricoPreco> listarTodos() {
         List<HistoricoPreco> historicos = new ArrayList<>();
-        String sql = "SELECT * FROM historico_preco";
+        String sql = "SELECT * FROM HISTORICO_PRECO";
         try {
             pst = connection.prepareStatement(sql);
             try (ResultSet rs = pst.executeQuery()) {
@@ -71,7 +71,7 @@ public class HistoricoPrecoDAO implements Repositorio<HistoricoPreco, Integer> {
 
     @Override
     public void atualizar(HistoricoPreco historico) {
-        String sql = "UPDATE historico_preco SET id_ativo = ?, data = ?, preco_abertura = ?, preco_fechamento = ?, preco_maximo = ?, preco_minimo = ?, volume_negociado = ? WHERE id_historico = ?";
+        String sql = "UPDATE HISTORICO_PRECO SET id_ativo = ?, data = ?, preco_abertura = ?, preco_fechamento = ?, preco_maximo = ?, preco_minimo = ?, volume_negociado = ? WHERE id_historico = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, historico.getAtivo().getIdAtivo());
@@ -90,7 +90,7 @@ public class HistoricoPrecoDAO implements Repositorio<HistoricoPreco, Integer> {
 
     @Override
     public void deletar(Integer id) {
-        String sql = "DELETE FROM historico_preco WHERE id_historico = ?";
+        String sql = "DELETE FROM HISTORICO_PRECO WHERE id_historico = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -102,7 +102,7 @@ public class HistoricoPrecoDAO implements Repositorio<HistoricoPreco, Integer> {
 
     public List<HistoricoPreco> buscarPorData(java.time.LocalDate data) {
         List<HistoricoPreco> historicos = new ArrayList<>();
-        String sql = "SELECT * FROM historico_preco WHERE data = ?";
+        String sql = "SELECT * FROM HISTORICO_PRECO WHERE data = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setDate(1, Date.valueOf(data));

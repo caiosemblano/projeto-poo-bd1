@@ -12,7 +12,7 @@ public class InvestidorDAO implements Repositorio<Investidor, Integer> {
 
     @Override
     public void inserir(Investidor investidor) {
-        String sql = "INSERT INTO investidor (nome, email, telefone, senha, data_cadastro, status) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO INVESTIDOR (nome, email, telefone, senha, data_cadastro, status) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1, investidor.getNome());
@@ -35,7 +35,7 @@ public class InvestidorDAO implements Repositorio<Investidor, Integer> {
 
     @Override
     public Investidor buscarPorId(Integer id) {
-        String sql = "SELECT * FROM investidor WHERE id_investidor = ?";
+        String sql = "SELECT * FROM INVESTIDOR WHERE id_investidor = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -53,7 +53,7 @@ public class InvestidorDAO implements Repositorio<Investidor, Integer> {
     @Override
     public List<Investidor> listarTodos() {
         List<Investidor> investidores = new ArrayList<>();
-        String sql = "SELECT * FROM investidor";
+        String sql = "SELECT * FROM INVESTIDOR";
         try {
             pst = connection.prepareStatement(sql);
             try (ResultSet rs = pst.executeQuery()) {
@@ -69,7 +69,7 @@ public class InvestidorDAO implements Repositorio<Investidor, Integer> {
 
     @Override
     public void atualizar(Investidor investidor) {
-        String sql = "UPDATE investidor SET nome = ?, email = ?, telefone = ?, senha = ?, status = ? WHERE id_investidor = ?";
+        String sql = "UPDATE INVESTIDOR SET nome = ?, email = ?, telefone = ?, senha = ?, status = ? WHERE id_investidor = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(1, investidor.getNome());
@@ -86,7 +86,7 @@ public class InvestidorDAO implements Repositorio<Investidor, Integer> {
 
     @Override
     public void deletar(Integer id) {
-        String sql = "DELETE FROM investidor WHERE id_investidor = ?";
+        String sql = "DELETE FROM INVESTIDOR WHERE id_investidor = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -97,7 +97,7 @@ public class InvestidorDAO implements Repositorio<Investidor, Integer> {
     }
 
     public Investidor buscarPorEmail(String email) {
-        String sql = "SELECT * FROM investidor WHERE email = ?";
+        String sql = "SELECT * FROM INVESTIDOR WHERE email = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(1, email);
@@ -114,7 +114,7 @@ public class InvestidorDAO implements Repositorio<Investidor, Integer> {
 
     public List<Investidor> buscarPorNome(String nome) {
         List<Investidor> investidores = new ArrayList<>();
-        String sql = "SELECT * FROM investidor WHERE nome LIKE ?";
+        String sql = "SELECT * FROM INVESTIDOR WHERE nome LIKE ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(1, "%" + nome + "%");

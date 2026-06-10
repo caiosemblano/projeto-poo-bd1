@@ -15,7 +15,7 @@ public class TransacaoDAO implements Repositorio<Transacao, Integer> {
 
     @Override
     public void inserir(Transacao transacao) {
-        String sql = "INSERT INTO transacao (id_carteira, id_ativo, tipo_transacao, quantidade, preco_unitario, valor_total, data_transacao, comissao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO TRANSACAO (id_carteira, id_ativo, tipo_transacao, quantidade, preco_unitario, valor_total, data_transacao, comissao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, transacao.getCarteira().getIdCarteira());
@@ -40,7 +40,7 @@ public class TransacaoDAO implements Repositorio<Transacao, Integer> {
 
     @Override
     public Transacao buscarPorId(Integer id) {
-        String sql = "SELECT * FROM transacao WHERE id_transacao = ?";
+        String sql = "SELECT * FROM TRANSACAO WHERE id_transacao = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -58,7 +58,7 @@ public class TransacaoDAO implements Repositorio<Transacao, Integer> {
     @Override
     public List<Transacao> listarTodos() {
         List<Transacao> transacoes = new ArrayList<>();
-        String sql = "SELECT * FROM transacao";
+        String sql = "SELECT * FROM TRANSACAO";
         try {
             pst = connection.prepareStatement(sql);
             try (ResultSet rs = pst.executeQuery()) {
@@ -74,7 +74,7 @@ public class TransacaoDAO implements Repositorio<Transacao, Integer> {
 
     @Override
     public void atualizar(Transacao transacao) {
-        String sql = "UPDATE transacao SET id_carteira = ?, id_ativo = ?, tipo_transacao = ?, quantidade = ?, preco_unitario = ?, valor_total = ?, data_transacao = ?, comissao = ? WHERE id_transacao = ?";
+        String sql = "UPDATE TRANSACAO SET id_carteira = ?, id_ativo = ?, tipo_transacao = ?, quantidade = ?, preco_unitario = ?, valor_total = ?, data_transacao = ?, comissao = ? WHERE id_transacao = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, transacao.getCarteira().getIdCarteira());
@@ -94,7 +94,7 @@ public class TransacaoDAO implements Repositorio<Transacao, Integer> {
 
     @Override
     public void deletar(Integer id) {
-        String sql = "DELETE FROM transacao WHERE id_transacao = ?";
+        String sql = "DELETE FROM TRANSACAO WHERE id_transacao = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -106,7 +106,7 @@ public class TransacaoDAO implements Repositorio<Transacao, Integer> {
 
     public List<Transacao> buscarPorTipo(String tipoTransacao) {
         List<Transacao> transacoes = new ArrayList<>();
-        String sql = "SELECT * FROM transacao WHERE tipo_transacao = ?";
+        String sql = "SELECT * FROM TRANSACAO WHERE tipo_transacao = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(1, tipoTransacao);
@@ -123,7 +123,7 @@ public class TransacaoDAO implements Repositorio<Transacao, Integer> {
 
     public List<Transacao> buscarPorIntervaloData(java.time.LocalDate inicio, java.time.LocalDate fim) {
         List<Transacao> transacoes = new ArrayList<>();
-        String sql = "SELECT * FROM transacao WHERE data_transacao BETWEEN ? AND ?";
+        String sql = "SELECT * FROM TRANSACAO WHERE data_transacao BETWEEN ? AND ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setDate(1, Date.valueOf(inicio));

@@ -13,7 +13,7 @@ public class ObjetivoDAO implements Repositorio<Objetivo, Integer> {
 
     @Override
     public void inserir(Objetivo objetivo) {
-        String sql = "INSERT INTO objetivo (id_carteira, meta_rentabilidade, prazo_meses, data_criacao, status, descricao) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO OBJETIVO (id_carteira, meta_rentabilidade, prazo_meses, data_criacao, status, descricao) VALUES (?, ?, ?, ?, ?, ?)";
         try {
             pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, objetivo.getCarteira().getIdCarteira());
@@ -36,7 +36,7 @@ public class ObjetivoDAO implements Repositorio<Objetivo, Integer> {
 
     @Override
     public Objetivo buscarPorId(Integer id) {
-        String sql = "SELECT * FROM objetivo WHERE id_objetivo = ?";
+        String sql = "SELECT * FROM OBJETIVO WHERE id_objetivo = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -54,7 +54,7 @@ public class ObjetivoDAO implements Repositorio<Objetivo, Integer> {
     @Override
     public List<Objetivo> listarTodos() {
         List<Objetivo> objetivos = new ArrayList<>();
-        String sql = "SELECT * FROM objetivo";
+        String sql = "SELECT * FROM OBJETIVO";
         try {
             pst = connection.prepareStatement(sql);
             try (ResultSet rs = pst.executeQuery()) {
@@ -70,7 +70,7 @@ public class ObjetivoDAO implements Repositorio<Objetivo, Integer> {
 
     @Override
     public void atualizar(Objetivo objetivo) {
-        String sql = "UPDATE objetivo SET id_carteira = ?, meta_rentabilidade = ?, prazo_meses = ?, status = ?, descricao = ? WHERE id_objetivo = ?";
+        String sql = "UPDATE OBJETIVO SET id_carteira = ?, meta_rentabilidade = ?, prazo_meses = ?, status = ?, descricao = ? WHERE id_objetivo = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, objetivo.getCarteira().getIdCarteira());
@@ -87,7 +87,7 @@ public class ObjetivoDAO implements Repositorio<Objetivo, Integer> {
 
     @Override
     public void deletar(Integer id) {
-        String sql = "DELETE FROM objetivo WHERE id_objetivo = ?";
+        String sql = "DELETE FROM OBJETIVO WHERE id_objetivo = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setInt(1, id);
@@ -99,7 +99,7 @@ public class ObjetivoDAO implements Repositorio<Objetivo, Integer> {
 
     public List<Objetivo> buscarPorStatus(String status) {
         List<Objetivo> objetivos = new ArrayList<>();
-        String sql = "SELECT * FROM objetivo WHERE status = ?";
+        String sql = "SELECT * FROM OBJETIVO WHERE status = ?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(1, status);
