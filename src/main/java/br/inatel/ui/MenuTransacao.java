@@ -1,6 +1,8 @@
 package br.inatel.ui;
 
 public class MenuTransacao {
+    
+    Scanner s = new Scanner(System.in);
 
     public void exibirMenu() {
         int opcao;
@@ -11,7 +13,8 @@ public class MenuTransacao {
             System.out.println("3. Listar Transações");
             System.out.println("4. Voltar para o Menu Principal");
             System.out.print("Escolha uma opção: ");
-           
+            opcao = s.nextInt();
+            
             switch (opcao) {
                 case 1:
                     comprarAtivo();
