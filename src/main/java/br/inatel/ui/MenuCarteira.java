@@ -1,4 +1,207 @@
 package br.inatel.ui;
 
+import br.inatel.model.*;
+import br.inatel.service.CarteiraService;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
+
 public class MenuCarteira {
+
+    private final Scanner scanner = new Scanner(System.in);
+    private final CarteiraService service = new CarteiraService(new br.inatel.dao.CarteiraDAO());
+
+    public MenuCarteira() {
+    }
+
+    public void exibirMenu() {
+        int opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\n--- Gestão de Carteiras ---");
+            System.out.println("1. Listar todas as carteiras");
+            System.out.println("2. Buscar carteira por nome");
+            System.out.println("3. Cadastrar nova carteira");
+            System.out.println("4. Atualizar carteira");
+            System.out.println("5. Deletar carteira");
+            System.out.println("0. Voltar");
+            System.out.print("Escolha uma opção: ");
+
+            try {
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Erro: Entrada inválida. Digite um número.");
+                scanner.nextLine();
+                opcao = -1;
+                continue;
+            }
+
+            switch (opcao) {
+                case 1:
+                    listarCarteiras();
+                    break;
+                case 2:
+                    buscarCarteiraPorNome();
+                    break;
+                case 3:
+                    cadastrarCarteira();
+                    break;
+                case 4:
+                    atualizarCarteira();
+                    break;
+                case 5:
+                    deletarCarteira();
+                    break;
+                case 0:
+                    System.out.println("Voltando...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    private void listarCarteiras() {
+        service.listarTodos();
+    }
+
+    private void buscarCarteiraPorNome() {
+        System.out.println("\n--- Buscar Carteira por Nome ---");
+        System.out.print("Digite o nome da carteira a ser pesquisada: ");
+        String nome = scanner.nextLine();
+
+        service.buscarPorNome(nome);
+    }
+
+    private void cadastrarCarteira() {
+        System.out.println("\n--- Cadastrar Nova Carteira ---");
+        System.out.print("Digite o ID do Investidor dono desta carteira: ");
+        int idInvestidor = -1;
+        try {
+            idInvestidor = scanner.nextInt();
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("ID inválido. Cancelando cadastro.");
+            scanner.nextLine();
+            return;
+        }
+
+        System.out.print("Digite o Nome da Carteira: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Digite a Descrição: ");
+        String descricao = scanner.nextLine();
+
+        System.out.print("Digite o Valor Total Investido Inicial: ");
+        double valorInicial = 0.0;
+        try {
+            valorInicial = scanner.nextDouble();
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Valor inválido. Definindo como 0.0.");
+            scanner.nextLine();
+        }
+
+        Carteira carteira = new Carteira();
+        Investidor investidor = new Investidor();
+        investidor.setIdInvestidor(idInvestidor);
+        carteira.setInvestidor(investidor);
+        carteira.setNomeCarteira(nome);
+        carteira.setDescricao(descricao);
+        carteira.setValorTotalInvestido(BigDecimal.valueOf(valorInicial));
+        carteira.setDataCriacao(LocalDate.now());
+
+        service.inserir(carteira);
+    }
+
+    private void atualizarCarteira() {
+        System.out.println("\n--- Atualizar Carteira ---");
+        System.out.print("Digite o ID da Carteira que deseja atualizar: ");
+        int id = -1;
+        try {
+            id = scanner.nextInt();
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Erro: ID inválido.");
+            scanner.nextLine();
+            return;
+        }
+
+        Carteira carteira = service.buscarPorId(id);
+        if (carteira == null) {
+            return;
+        }
+
+        System.out.println("Dados atuais: " + carteira.getNomeCarteira() + " (" + (carteira.getDescricao() != null ? carteira.getDescricao() : "") + ")");
+        System.out.print("Digite o novo Nome (ou pressione Enter para manter): ");
+        String novoNome = scanner.nextLine();
+        if (!novoNome.trim().isEmpty()) {
+            carteira.setNomeCarteira(novoNome);
+        }
+
+        System.out.print("Digite a nova Descrição (ou pressione Enter para manter): ");
+        String novaDescricao = scanner.nextLine();
+        if (!novaDescricao.trim().isEmpty()) {
+            carteira.setDescricao(novaDescricao);
+        }
+
+        System.out.print("Digite o novo Valor Total (ou pressione Enter para manter): ");
+        String novoValorStr = scanner.nextLine();
+        if (!novoValorStr.trim().isEmpty()) {
+            try {
+                double novoValor = Double.parseDouble(novoValorStr);
+                carteira.setValorTotalInvestido(BigDecimal.valueOf(novoValor));
+            } catch (Exception e) {
+                System.out.println("Valor inválido. Mantendo o valor anterior.");
+            }
+        }
+
+        if (carteira.getInvestidor() == null) {
+            System.out.print("Digite o ID do Investidor dono desta carteira: ");
+            int idInvestidor = -1;
+            try {
+                idInvestidor = scanner.nextInt();
+                scanner.nextLine();
+                Investidor investidor = new Investidor();
+                investidor.setIdInvestidor(idInvestidor);
+                carteira.setInvestidor(investidor);
+            } catch (Exception e) {
+                System.out.println("ID inválido. Cancelando atualização.");
+                scanner.nextLine();
+                return;
+            }
+        }
+
+        service.atualizar(carteira);
+    }
+
+    private void deletarCarteira() {
+        System.out.println("\n--- Deletar Carteira ---");
+        System.out.print("Digite o ID da Carteira que deseja remover: ");
+        int id = -1;
+        try {
+            id = scanner.nextInt();
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Erro: ID inválido.");
+            scanner.nextLine();
+            return;
+        }
+
+        Carteira carteira = service.buscarPorId(id);
+        if (carteira == null) {
+            return;
+        }
+
+        System.out.println("Tem certeza que deseja deletar a carteira " + carteira.getNomeCarteira() + "? (S/N)");
+        String confirmacao = scanner.nextLine().toUpperCase();
+
+        if (confirmacao.equals("S")) {
+            service.deletar(id);
+        } else {
+            System.out.println("Operação cancelada.");
+        }
+    }
 }
