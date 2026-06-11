@@ -74,7 +74,7 @@ public class MenuObjetivo {
             return;
         }
 
-        System.out.print("Meta de Rentabilidade (ex: 15000.00): ");
+        System.out.print("Meta de Rentabilidade em % (ex: 15.5 para 15,5%): ");
         BigDecimal meta;
         try {
             meta = new BigDecimal(scanner.nextLine());
