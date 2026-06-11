@@ -20,6 +20,7 @@ public class MenuPrincipal {
             System.out.println("4. Transações");
             System.out.println("5. Histórico de Preços");
             System.out.println("6. Objetivos");
+            System.out.println("7. Relatórios");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -61,6 +62,11 @@ public class MenuPrincipal {
                 case 6:
                     MenuObjetivo objetivo = new MenuObjetivo();
                     objetivo.exibirMenu();
+                    break;
+
+                case 7:
+                    MenuRelatorio relatorio = new MenuRelatorio();
+                    relatorio.exibirMenu();
                     break;
 
                 case 0:
