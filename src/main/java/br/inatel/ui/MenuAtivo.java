@@ -12,10 +12,11 @@ public class MenuAtivo {
     Scanner scanner;
     AtivoService service;
 
-    public MenuAtivo() {
+    public MenuAtivo(Scanner scanner, AtivoService service) {
         this.scanner = scanner;
         this.service = service;
     }
+
 
     public void exibirMenu() {
         int opcao = -1;

@@ -5,7 +5,7 @@ public class MenuTransacao {
     Scanner s = new Scanner(System.in);
 
     public void exibirMenu() {
-        int opcao;
+        int opcao = -1;
         do {
             System.out.println("\n--- Menu de Transações ---");
             System.out.println("1. Comprar Ativo");
@@ -17,13 +17,13 @@ public class MenuTransacao {
             
             switch (opcao) {
                 case 1:
-                    comprarAtivo();
+                    //comprarAtivo();
                     break;
                 case 2:
-                    venderAtivo();
+                    //venderAtivo();
                     break;
                 case 3:
-                    listarTransacoes();
+                    //listarTransacoes();
                     break;
                 case 4:
                     System.out.println("Voltando ao Menu Principal...");

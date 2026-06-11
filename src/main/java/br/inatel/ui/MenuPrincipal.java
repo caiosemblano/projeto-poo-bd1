@@ -1,5 +1,8 @@
 package br.inatel.ui;
 
+import br.inatel.dao.AtivoDAO;
+import br.inatel.service.AtivoService;
+
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -7,6 +10,12 @@ public class MenuPrincipal {
     Scanner scanner = new Scanner(System.in);
 
     public void exibirMenu() {
+        Scanner scanner = new Scanner(System.in);
+
+        AtivoDAO ativoDAO = new AtivoDAO();
+        AtivoService ativoService = new AtivoService(ativoDAO);
+        MenuAtivo menuAtivo = new MenuAtivo(scanner, ativoService);
+
         int opcao = -1;
 
         do {
@@ -32,17 +41,16 @@ public class MenuPrincipal {
                 switch (opcao) {
                     case 1:
                         MenuInvestidor investidor = new MenuInvestidor();
-                        investidor.exibirMenu();
+                        //investidor.exibirMenu();
                         break;
 
                     case 2:
                         MenuCarteira carteira = new MenuCarteira();
-                        carteira.exibirMenu();
+                        //carteira.exibirMenu();
                         break;
 
                     case 3:
-                        MenuAtivo ativos = new MenuAtivo();
-                        ativos.exibirMenu();
+                        menuAtivo.exibirMenu();
                         break;
 
                     case 4:
@@ -52,12 +60,12 @@ public class MenuPrincipal {
 
                     case 5:
                         MenuHistorico historico = new MenuHistorico();
-                        historico.exibirMenu();
+                        //historico.exibirMenu();
                         break;
 
                     case 6:
                         MenuObjetivo objetivo = new MenuObjetivo();
-                        objetivo.exibirMenu();
+                        //objetivo.exibirMenu();
                         break;
 
                     case 0:
