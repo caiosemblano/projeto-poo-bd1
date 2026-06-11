@@ -1,5 +1,8 @@
 package br.inatel.ui;
 
+
+import java.util.Scanner;
+
 public class MenuTransacao {
     
     Scanner s = new Scanner(System.in);
