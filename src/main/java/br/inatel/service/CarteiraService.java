@@ -21,6 +21,8 @@ public class CarteiraService {
         return carteiraDAO.buscarPorId(id);
     }
 
+    public Carteira buscarPorNome(String nome) {return carteiraDAO.buscarPorNome(nome);}
+
     public List<Carteira> listarTodos() {
         return carteiraDAO.listarTodos();
     }
