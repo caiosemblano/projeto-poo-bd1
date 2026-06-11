@@ -10,6 +10,7 @@ public class MenuPrincipal {
     Scanner scanner = new Scanner(System.in);
 
     public void exibirMenu() {
+
         Scanner scanner = new Scanner(System.in);
 
         AtivoDAO ativoDAO = new AtivoDAO();
@@ -32,50 +33,50 @@ public class MenuPrincipal {
             try {
                 opcao = scanner.nextInt();
                 scanner.nextLine();
-            }catch(Exception e) {
-                System.out.println("Erro de entrada, tente novamente seguindo as opções válidas: ");
+            } catch (Exception e) {
+                System.out.println("Erro de entrada, tente novamente seguindo as opções válidas:");
                 scanner.nextLine();
                 opcao = -1;
             }
 
-                switch (opcao) {
-                    case 1:
-                        MenuInvestidor investidor = new MenuInvestidor();
-                        //investidor.exibirMenu();
-                        break;
+            switch (opcao) {
+                case 1:
+                    MenuInvestidor investidor = new MenuInvestidor();
+                    // investidor.exibirMenu();
+                    break;
 
-                    case 2:
-                        MenuCarteira carteira = new MenuCarteira();
-                        //carteira.exibirMenu();
-                        break;
+                case 2:
+                    MenuCarteira carteira = new MenuCarteira();
+                    // carteira.exibirMenu();
+                    break;
 
-                    case 3:
-                        menuAtivo.exibirMenu();
-                        break;
+                case 3:
+                    menuAtivo.exibirMenu();
+                    break;
 
-                    case 4:
-                        MenuTransacao transacao = new MenuTransacao();
-                        transacao.exibirMenu();
-                        break;
+                case 4:
+                    MenuTransacao transacao = new MenuTransacao();
+                    transacao.exibirMenu();
+                    break;
 
-                    case 5:
-                        MenuHistorico historico = new MenuHistorico();
-                        //historico.exibirMenu();
-                        break;
+                case 5:
+                    MenuHistorico historico = new MenuHistorico();
+                    // historico.exibirMenu();
+                    break;
 
-                    case 6:
-                        MenuObjetivo objetivo = new MenuObjetivo();
-                        //objetivo.exibirMenu();
-                        break;
+                case 6:
+                    MenuObjetivo objetivo = new MenuObjetivo();
+                    // objetivo.exibirMenu();
+                    break;
 
-                    case 0:
-                        System.out.println("Saindo do sistema... Obrigado!");
-                        break;
+                case 0:
+                    System.out.println("Saindo do sistema... Obrigado!");
+                    break;
 
-                    default:
-                        System.out.println("Opção inválida!");
-                }
+                default:
+                    System.out.println("Opção inválida!");
+            }
 
-            } while (opcao != 0) ;
+        } while (opcao != 0);
     }
 }
