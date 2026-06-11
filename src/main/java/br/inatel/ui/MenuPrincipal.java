@@ -1,7 +1,5 @@
 package br.inatel.ui;
 
-import br.inatel.dao.AtivoDAO;
-import br.inatel.service.AtivoService;
 
 import java.util.Scanner;
 
@@ -11,11 +9,6 @@ public class MenuPrincipal {
 
     public void exibirMenu() {
 
-        Scanner scanner = new Scanner(System.in);
-
-        AtivoDAO ativoDAO = new AtivoDAO();
-        AtivoService ativoService = new AtivoService(ativoDAO);
-        MenuAtivo menuAtivo = new MenuAtivo(scanner, ativoService);
 
         int opcao = -1;
 
@@ -51,6 +44,7 @@ public class MenuPrincipal {
                     break;
 
                 case 3:
+                    MenuAtivo menuAtivo = new MenuAtivo();
                     menuAtivo.exibirMenu();
                     break;
 

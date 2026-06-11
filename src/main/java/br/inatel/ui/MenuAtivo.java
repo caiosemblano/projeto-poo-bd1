@@ -9,14 +9,9 @@ import java.util.Scanner;
 
 public class MenuAtivo {
 
-    Scanner scanner;
-    AtivoService service;
-
-    public MenuAtivo(Scanner scanner, AtivoService service) {
-        this.scanner = scanner;
-        this.service = service;
-    }
-
+    Scanner scanner = new Scanner(System.in);
+    
+    AtivoService service = new AtivoService();
 
     public void exibirMenu() {
         int opcao = -1;

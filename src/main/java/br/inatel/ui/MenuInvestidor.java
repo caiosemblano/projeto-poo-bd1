@@ -3,11 +3,7 @@ package br.inatel.ui;
 import java.util.Scanner;
 
 public class MenuInvestidor {
-    Scanner s;
-
-    public MenuInvestidor(Scanner scanner) {
-        this.s = scanner;
-    }
+    Scanner s = new Scanner(System.in);
 
     public void exibirMenu() {
         int opcao = -1;

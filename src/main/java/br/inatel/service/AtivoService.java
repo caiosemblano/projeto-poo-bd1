@@ -7,11 +7,7 @@ import java.util.stream.Collectors;
 
 public class AtivoService {
 
-    private final AtivoDAO ativoDAO;
-
-    public AtivoService(AtivoDAO ativoDAO) {
-        this.ativoDAO = ativoDAO;
-    }
+    AtivoDAO ativoDAO = new AtivoDAO();
 
     public void inserir(Ativo ativo) {
         ativoDAO.inserir(ativo);
