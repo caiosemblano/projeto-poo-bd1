@@ -21,6 +21,7 @@ public class MenuPrincipal {
             System.out.println("5. Histórico de Preços");
             System.out.println("6. Objetivos");
             System.out.println("7. Relatórios");
+            System.out.println("8. Popular o banco de dados");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -67,6 +68,10 @@ public class MenuPrincipal {
                 case 7:
                     MenuRelatorio relatorio = new MenuRelatorio();
                     relatorio.exibirMenu();
+                    break;
+
+                case 8:
+                    br.inatel.dao.DatabasePopulatorDAO.popularBanco();
                     break;
 
                 case 0:
