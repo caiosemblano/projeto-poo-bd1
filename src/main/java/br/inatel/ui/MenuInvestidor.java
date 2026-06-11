@@ -37,5 +37,7 @@ public class MenuInvestidor {
                     System.out.println("Opção inválida!");
             }
         } while (opcao != 5);
+
+        s.close();
     }
 }

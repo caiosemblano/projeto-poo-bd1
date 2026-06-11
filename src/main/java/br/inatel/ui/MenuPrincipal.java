@@ -72,5 +72,7 @@ public class MenuPrincipal {
             }
 
         } while (opcao != 0);
+
+        scanner.close();
     }
 }

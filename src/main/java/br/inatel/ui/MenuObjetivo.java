@@ -38,5 +38,8 @@ public class MenuObjetivo {
                     System.out.println("Opção inválida!");
             }
         } while (opcao != 5);
+        
+        s.close();
     }
+
 }
