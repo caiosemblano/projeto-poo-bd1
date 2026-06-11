@@ -9,27 +9,21 @@ public class InvestidorService {
 
     private final InvestidorDAO investidorDAO;
 
-    public InvestidorService(InvestidorDAO investidorDAO) {
-        this.investidorDAO = investidorDAO;
-    }
+    public InvestidorService(InvestidorDAO investidorDAO) { this.investidorDAO = investidorDAO; }
 
-    public void inserir(Investidor investidor) {
-        investidorDAO.inserir(investidor);
-    }
+    public void inserir(Investidor investidor) { investidorDAO.inserir(investidor); }
 
-    public Investidor buscarPorId(Integer id) {
-        return investidorDAO.buscarPorId(id);
-    }
+    public Investidor buscarPorId(Integer id) { return investidorDAO.buscarPorId(id); }
 
-    public List<Investidor> listarTodos() {
-        return investidorDAO.listarTodos();
-    }
+    public Investidor buscarPorEmail(String email) { return investidorDAO.buscarPorEmail(email); }
 
-    public void atualizar(Investidor investidor) {
-        investidorDAO.atualizar(investidor);
-    }
+    public List<Investidor> buscarPorNome(String nome) { return investidorDAO.buscarPorNome(nome); }
 
-    public void deletar(Integer id) {
-        investidorDAO.deletar(id);
-    }
+    public List<Investidor> listarTodos() { return investidorDAO.listarTodos(); }
+
+    public void atualizar(Investidor investidor) { investidorDAO.atualizar(investidor); }
+
+    public void inativar(Integer id) { investidorDAO.inativar(id); }
+
+    public void deletar(Integer id) { investidorDAO.deletar(id); }
 }
