@@ -1,6 +1,7 @@
 package br.inatel.dao;
 
 import br.inatel.model.Carteira;
+import br.inatel.model.Investidor;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -48,8 +49,12 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
                     carteira.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
                     carteira.setDescricao(rs.getString("descricao"));
                     carteira.setValorTotalInvestido(rs.getBigDecimal("valor_total_investido"));
-                    return carteira;
 
+                    Investidor investidor = new Investidor();
+                    investidor.setIdInvestidor(rs.getInt("id_investidor"));
+                    carteira.setInvestidor(investidor);
+
+                    return carteira;
                 }
             }
         } catch (SQLException e) {
@@ -72,8 +77,12 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
                     carteira.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
                     carteira.setDescricao(rs.getString("descricao"));
                     carteira.setValorTotalInvestido(rs.getBigDecimal("valor_total_investido"));
-                    return carteira;
 
+                    Investidor investidor = new Investidor();
+                    investidor.setIdInvestidor(rs.getInt("id_investidor"));
+                    carteira.setInvestidor(investidor);
+
+                    return carteira;
                 }
             }
         }catch(SQLException e){
@@ -96,6 +105,11 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
                     carteira.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
                     carteira.setDescricao(rs.getString("descricao"));
                     carteira.setValorTotalInvestido(rs.getBigDecimal("valor_total_investido"));
+
+                    Investidor investidor = new Investidor();
+                    investidor.setIdInvestidor(rs.getInt("id_investidor"));
+                    carteira.setInvestidor(investidor);
+
                     carteiras.add(carteira);
                 }
             }
