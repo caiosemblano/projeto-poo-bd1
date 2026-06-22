@@ -1,6 +1,5 @@
 package br.inatel.dao;
 
-import br.inatel.model.Acao;
 import br.inatel.model.Ativo;
 import br.inatel.model.Carteira;
 import br.inatel.model.Transacao;
@@ -147,7 +146,8 @@ public class TransacaoDAO implements Repositorio<Transacao, Integer> {
         carteira.setIdCarteira(rs.getInt("id_carteira"));
         transacao.setCarteira(carteira);
 
-        Ativo ativo = new Acao();
+        AtivoDAO ativoDAO = new AtivoDAO();
+        Ativo ativo = ativoDAO.buscarPorId(rs.getInt("id_ativo"));
         ativo.setIdAtivo(rs.getInt("id_ativo"));
         transacao.setAtivo(ativo);
 

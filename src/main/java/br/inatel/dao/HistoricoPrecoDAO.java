@@ -1,6 +1,6 @@
 package br.inatel.dao;
 
-import br.inatel.model.Acao;
+import br.inatel.model.Ativo;
 import br.inatel.model.HistoricoPreco;
 
 import java.sql.*;
@@ -120,8 +120,9 @@ public class HistoricoPrecoDAO implements Repositorio<HistoricoPreco, Integer> {
     private HistoricoPreco mapearResultSetParaHistorico(ResultSet rs) throws SQLException {
         HistoricoPreco historico = new HistoricoPreco();
         historico.setIdHistorico(rs.getInt("id_historico"));
-        
-        Acao ativo = new Acao();
+
+        AtivoDAO ativoDAO = new AtivoDAO();
+        Ativo ativo = ativoDAO.buscarPorId(rs.getInt("id_ativo"));
         ativo.setIdAtivo(rs.getInt("id_ativo"));
         historico.setAtivo(ativo);
         
