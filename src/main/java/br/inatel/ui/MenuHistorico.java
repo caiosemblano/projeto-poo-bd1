@@ -1,8 +1,9 @@
 package br.inatel.ui;
 
 import br.inatel.dao.HistoricoPrecoDAO;
-import br.inatel.model.Acao;
+import br.inatel.model.Ativo;
 import br.inatel.model.HistoricoPreco;
+import br.inatel.service.AtivoService;
 import br.inatel.service.HistoricoPrecoService;
 
 import java.math.BigDecimal;
@@ -112,7 +113,12 @@ public class MenuHistorico {
         BigDecimal volume = new BigDecimal(scanner.nextLine());
 
         HistoricoPreco historico = new HistoricoPreco();
-        Acao ativo = new Acao();
+        AtivoService ativoService = new AtivoService();
+        Ativo ativo = ativoService.buscarPorId(idAtivo);
+        if (ativo == null) {
+            System.out.println("ID fornecido não existente.");
+            return;
+        }
         ativo.setIdAtivo(idAtivo);
         historico.setAtivo(ativo);
         historico.setData(data);

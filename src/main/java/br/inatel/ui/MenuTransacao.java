@@ -2,6 +2,7 @@ package br.inatel.ui;
 
 import br.inatel.dao.TransacaoDAO;
 import br.inatel.model.*;
+import br.inatel.service.AtivoService;
 import br.inatel.service.TransacaoService;
 
 import java.math.BigDecimal;
@@ -133,8 +134,14 @@ public class MenuTransacao {
         carteira.setIdCarteira(idCarteira);
         transacao.setCarteira(carteira);
 
-        Acao ativo = new Acao();
-        ativo.setIdAtivo(idAtivo);
+
+        AtivoService ativoService = new AtivoService();
+        Ativo ativo = ativoService.buscarPorId(idAtivo);
+        if (ativo == null) {
+            System.out.println("ID fornecido não existente.");
+            return;
+        }
+
         transacao.setAtivo(ativo);
 
         transacao.setTipoTransacao(tipo);
