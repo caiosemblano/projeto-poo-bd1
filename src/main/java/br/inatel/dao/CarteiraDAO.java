@@ -38,23 +38,12 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
     public Carteira buscarPorId(Integer id_carteira) {
         String sql = "SELECT * FROM CARTEIRA WHERE id_carteira = ?";
         try {
-            pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pst = connection.prepareStatement(sql);
             pst.setInt(1, id_carteira);
 
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
-                    Carteira carteira = new Carteira();
-                    carteira.setIdCarteira(rs.getInt("id_carteira"));
-                    carteira.setNomeCarteira(rs.getString("nome_carteira"));
-                    carteira.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
-                    carteira.setDescricao(rs.getString("descricao"));
-                    carteira.setValorTotalInvestido(rs.getBigDecimal("valor_total_investido"));
-
-                    Investidor investidor = new Investidor();
-                    investidor.setIdInvestidor(rs.getInt("id_investidor"));
-                    carteira.setInvestidor(investidor);
-
-                    return carteira;
+                    return mapearResultSetParaCarteira(rs);
                 }
             }
         } catch (SQLException e) {
@@ -65,27 +54,16 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
 
     public Carteira buscarPorNome(String nome_carteira) {
         String sql = "SELECT * FROM CARTEIRA WHERE nome_carteira = ?";
-        try{
-            pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        try {
+            pst = connection.prepareStatement(sql);
             pst.setString(1, nome_carteira);
 
-            try (ResultSet rs = pst.executeQuery()){
-                if(rs.next()){
-                    Carteira carteira = new Carteira();
-                    carteira.setIdCarteira(rs.getInt("id_carteira"));
-                    carteira.setNomeCarteira(rs.getString("nome_carteira"));
-                    carteira.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
-                    carteira.setDescricao(rs.getString("descricao"));
-                    carteira.setValorTotalInvestido(rs.getBigDecimal("valor_total_investido"));
-
-                    Investidor investidor = new Investidor();
-                    investidor.setIdInvestidor(rs.getInt("id_investidor"));
-                    carteira.setInvestidor(investidor);
-
-                    return carteira;
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return mapearResultSetParaCarteira(rs);
                 }
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return null;
@@ -99,24 +77,51 @@ public class CarteiraDAO implements Repositorio<Carteira, Integer>{
             pst = connection.prepareStatement(sql);
             try (ResultSet rs = pst.executeQuery()) {
                 while (rs.next()) {
-                    Carteira carteira = new Carteira();
-                    carteira.setIdCarteira(rs.getInt("id_carteira"));
-                    carteira.setNomeCarteira(rs.getString("nome_carteira"));
-                    carteira.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
-                    carteira.setDescricao(rs.getString("descricao"));
-                    carteira.setValorTotalInvestido(rs.getBigDecimal("valor_total_investido"));
-
-                    Investidor investidor = new Investidor();
-                    investidor.setIdInvestidor(rs.getInt("id_investidor"));
-                    carteira.setInvestidor(investidor);
-
-                    carteiras.add(carteira);
+                    carteiras.add(mapearResultSetParaCarteira(rs));
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return carteiras;
+    }
+
+    public List<Carteira> buscarPorInvestidor(int idInvestidor) {
+        List<Carteira> carteiras = new ArrayList<>();
+        String sql = "SELECT * FROM CARTEIRA WHERE id_investidor = ?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, idInvestidor);
+            try (ResultSet rs = pst.executeQuery()) {
+                while (rs.next()) {
+                    carteiras.add(mapearResultSetParaCarteira(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return carteiras;
+    }
+
+    private Carteira mapearResultSetParaCarteira(ResultSet rs) throws SQLException {
+        Carteira carteira = new Carteira();
+        carteira.setIdCarteira(rs.getInt("id_carteira"));
+        carteira.setNomeCarteira(rs.getString("nome_carteira"));
+        carteira.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
+        carteira.setDescricao(rs.getString("descricao"));
+        carteira.setValorTotalInvestido(rs.getBigDecimal("valor_total_investido"));
+
+        Investidor investidor = new Investidor();
+        investidor.setIdInvestidor(rs.getInt("id_investidor"));
+        carteira.setInvestidor(investidor);
+
+        CarteiraAtivoDAO caDAO = new CarteiraAtivoDAO();
+        carteira.setPosicoes(caDAO.listarPorCarteira(carteira.getIdCarteira()));
+
+        ObjetivoDAO oDAO = new ObjetivoDAO();
+        carteira.setObjetivo(oDAO.buscarPorCarteira(carteira.getIdCarteira()));
+
+        return carteira;
     }
 
     @Override

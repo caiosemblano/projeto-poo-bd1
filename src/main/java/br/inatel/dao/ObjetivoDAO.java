@@ -131,4 +131,20 @@ public class ObjetivoDAO implements Repositorio<Objetivo, Integer> {
         objetivo.setDescricao(rs.getString("descricao"));
         return objetivo;
     }
+
+    public Objetivo buscarPorCarteira(int idCarteira) {
+        String sql = "SELECT * FROM OBJETIVO WHERE id_carteira = ?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1, idCarteira);
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return mapearResultSetParaObjetivo(rs);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }
