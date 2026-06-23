@@ -152,7 +152,12 @@ public class MenuHistorico {
         historico.setPrecoMinimo(minimo);
         historico.setVolumeNegociado(volume);
 
-        service.inserir(historico);
+        try {
+            service.inserir(historico);
+            System.out.println("Histórico cadastrado com sucesso! ID gerado: " + historico.getIdHistorico());
+        } catch (Exception e) {
+            System.out.println("Erro ao cadastrar histórico: " + e.getMessage());
+        }
     }
 
     private void atualizarHistorico() {
@@ -170,6 +175,7 @@ public class MenuHistorico {
 
         HistoricoPreco historico = service.buscarPorId(id);
         if (historico == null) {
+            System.out.println("Histórico não encontrado!");
             return;
         }
 
@@ -198,7 +204,12 @@ public class MenuHistorico {
         if (!volumeStr.trim().isEmpty())
             historico.setVolumeNegociado(new BigDecimal(volumeStr));
 
-        service.atualizar(historico);
+        try {
+            service.atualizar(historico);
+            System.out.println("Histórico atualizado com sucesso!");
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar histórico: " + e.getMessage());
+        }
     }
 
     private void deletarHistorico() {
@@ -216,6 +227,7 @@ public class MenuHistorico {
 
         HistoricoPreco historico = service.buscarPorId(id);
         if (historico == null) {
+            System.out.println("Histórico não encontrado!");
             return;
         }
 
@@ -223,7 +235,12 @@ public class MenuHistorico {
         String confirmacao = scanner.nextLine().toUpperCase();
 
         if (confirmacao.equals("S")) {
-            service.deletar(id);
+            try {
+                service.deletar(id);
+                System.out.println("Histórico deletado com sucesso!");
+            } catch (Exception e) {
+                System.out.println("Erro ao deletar histórico: " + e.getMessage());
+            }
         } else {
             System.out.println("Operação cancelada.");
         }

@@ -111,7 +111,12 @@ public class MenuObjetivo {
         objetivo.setStatus(status);
         objetivo.setDescricao(descricao);
 
-        service.inserir(objetivo);
+        try {
+            service.inserir(objetivo);
+            System.out.println("Objetivo cadastrado com sucesso! ID gerado: " + objetivo.getIdObjetivo());
+        } catch (Exception e) {
+            System.out.println("Erro ao cadastrar objetivo. Verifique se o ID da Carteira existe.");
+        }
     }
 
     private void listarObjetivos() {
@@ -160,6 +165,7 @@ public class MenuObjetivo {
 
         Objetivo objetivo = service.buscarPorId(id);
         if (objetivo == null) {
+            System.out.println("Objetivo não encontrado!");
             return;
         }
 
@@ -191,7 +197,12 @@ public class MenuObjetivo {
         String descricao = scanner.nextLine();
         if (!descricao.trim().isEmpty()) objetivo.setDescricao(descricao);
 
-        service.atualizar(objetivo);
+        try {
+            service.atualizar(objetivo);
+            System.out.println("Objetivo atualizado com sucesso!");
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar objetivo: " + e.getMessage());
+        }
     }
 
     private void excluirObjetivo() {
@@ -209,6 +220,7 @@ public class MenuObjetivo {
 
         Objetivo objetivo = service.buscarPorId(id);
         if (objetivo == null) {
+            System.out.println("Objetivo não encontrado!");
             return;
         }
 
@@ -216,7 +228,12 @@ public class MenuObjetivo {
         String confirmacao = scanner.nextLine().toUpperCase();
 
         if (confirmacao.equals("S")) {
-            service.deletar(id);
+            try {
+                service.deletar(id);
+                System.out.println("Objetivo deletado com sucesso!");
+            } catch (Exception e) {
+                System.out.println("Erro ao deletar objetivo: " + e.getMessage());
+            }
         } else {
             System.out.println("Operação cancelada.");
         }

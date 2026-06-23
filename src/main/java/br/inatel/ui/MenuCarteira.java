@@ -143,7 +143,12 @@ public class MenuCarteira {
         carteira.setValorTotalInvestido(BigDecimal.valueOf(valorInicial));
         carteira.setDataCriacao(LocalDate.now());
 
-        service.inserir(carteira);
+        try {
+            service.inserir(carteira);
+            System.out.println("Carteira cadastrada com sucesso! ID gerado: " + carteira.getIdCarteira());
+        } catch (Exception e) {
+            System.out.println("Erro ao cadastrar carteira. Verifique se o ID do Investidor existe.");
+        }
     }
 
     private void atualizarCarteira() {
@@ -161,6 +166,7 @@ public class MenuCarteira {
 
         Carteira carteira = service.buscarPorId(id);
         if (carteira == null) {
+            System.out.println("Carteira não encontrada!");
             return;
         }
 
@@ -204,7 +210,12 @@ public class MenuCarteira {
             }
         }
 
-        service.atualizar(carteira);
+        try {
+            service.atualizar(carteira);
+            System.out.println("Carteira atualizada com sucesso!");
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar carteira: " + e.getMessage());
+        }
     }
 
     private void deletarCarteira() {
@@ -222,6 +233,7 @@ public class MenuCarteira {
 
         Carteira carteira = service.buscarPorId(id);
         if (carteira == null) {
+            System.out.println("Carteira não encontrada!");
             return;
         }
 
@@ -229,7 +241,12 @@ public class MenuCarteira {
         String confirmacao = scanner.nextLine().toUpperCase();
 
         if (confirmacao.equals("S")) {
-            service.deletar(id);
+            try {
+                service.deletar(id);
+                System.out.println("Carteira deletada com sucesso!");
+            } catch (Exception e) {
+                System.out.println("Erro ao deletar carteira: " + e.getMessage());
+            }
         } else {
             System.out.println("Operação cancelada.");
         }

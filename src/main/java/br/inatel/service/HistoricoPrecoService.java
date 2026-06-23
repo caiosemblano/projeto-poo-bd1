@@ -14,21 +14,12 @@ public class HistoricoPrecoService {
         this.historicoDAO = historicoDAO;
     }
 
-    public void inserir(HistoricoPreco historico) {
-        try {
-            historicoDAO.inserir(historico);
-            System.out.println("Histórico cadastrado com sucesso! ID gerado: " + historico.getIdHistorico());
-        } catch (Exception e) {
-            System.out.println("Erro ao cadastrar histórico: " + e.getMessage());
-        }
+    public void inserir(HistoricoPreco historico) throws Exception {
+        historicoDAO.inserir(historico);
     }
 
     public HistoricoPreco buscarPorId(Integer id) {
-        HistoricoPreco historico = historicoDAO.buscarPorId(id);
-        if (historico == null) {
-            System.out.println("Histórico não encontrado!");
-        }
-        return historico;
+        return historicoDAO.buscarPorId(id);
     }
 
     public List<HistoricoPreco> listarTodos() {
@@ -39,21 +30,11 @@ public class HistoricoPrecoService {
         return historicoDAO.buscarPorData(data);
     }
 
-    public void atualizar(HistoricoPreco historico) {
-        try {
-            historicoDAO.atualizar(historico);
-            System.out.println("Histórico atualizado com sucesso!");
-        } catch (Exception e) {
-            System.out.println("Erro ao atualizar histórico: " + e.getMessage());
-        }
+    public void atualizar(HistoricoPreco historico) throws Exception {
+        historicoDAO.atualizar(historico);
     }
 
-    public void deletar(Integer id) {
-        try {
-            historicoDAO.deletar(id);
-            System.out.println("Histórico deletado com sucesso!");
-        } catch (Exception e) {
-            System.out.println("Erro ao deletar histórico: " + e.getMessage());
-        }
+    public void deletar(Integer id) throws Exception {
+        historicoDAO.deletar(id);
     }
 }

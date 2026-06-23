@@ -13,21 +13,12 @@ public class CarteiraService {
         this.carteiraDAO = carteiraDAO;
     }
 
-    public void inserir(Carteira carteira) {
-        try {
-            carteiraDAO.inserir(carteira);
-            System.out.println("Carteira cadastrada com sucesso! ID gerado: " + carteira.getIdCarteira());
-        } catch (Exception e) {
-            System.out.println("Erro ao cadastrar carteira. Verifique se o ID do Investidor realmente existe.");
-        }
+    public void inserir(Carteira carteira) throws Exception {
+        carteiraDAO.inserir(carteira);
     }
 
     public Carteira buscarPorId(Integer id) {
-        Carteira carteira = carteiraDAO.buscarPorId(id);
-        if (carteira == null) {
-            System.out.println("Carteira não encontrada!");
-        }
-        return carteira;
+        return carteiraDAO.buscarPorId(id);
     }
 
     public Carteira buscarPorNome(String nome) {
@@ -38,21 +29,11 @@ public class CarteiraService {
         return carteiraDAO.listarTodos();
     }
 
-    public void atualizar(Carteira carteira) {
-        try {
-            carteiraDAO.atualizar(carteira);
-            System.out.println("Carteira atualizada com sucesso!");
-        } catch (Exception e) {
-            System.out.println("Erro ao atualizar carteira: " + e.getMessage());
-        }
+    public void atualizar(Carteira carteira) throws Exception {
+        carteiraDAO.atualizar(carteira);
     }
 
-    public void deletar(Integer id) {
-        try {
-            carteiraDAO.deletar(id);
-            System.out.println("Carteira deletada com sucesso!");
-        } catch (Exception e) {
-            System.out.println("Erro ao deletar carteira: " + e.getMessage());
-        }
+    public void deletar(Integer id) throws Exception {
+        carteiraDAO.deletar(id);
     }
 }

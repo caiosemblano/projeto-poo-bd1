@@ -13,21 +13,12 @@ public class ObjetivoService {
         this.objetivoDAO = objetivoDAO;
     }
 
-    public void inserir(Objetivo objetivo) {
-        try {
-            objetivoDAO.inserir(objetivo);
-            System.out.println("Objetivo cadastrado com sucesso! ID gerado: " + objetivo.getIdObjetivo());
-        } catch (Exception e) {
-            System.out.println("Erro ao cadastrar objetivo. Verifique se o ID da Carteira existe.");
-        }
+    public void inserir(Objetivo objetivo) throws Exception {
+        objetivoDAO.inserir(objetivo);
     }
 
     public Objetivo buscarPorId(Integer id) {
-        Objetivo objetivo = objetivoDAO.buscarPorId(id);
-        if (objetivo == null) {
-            System.out.println("Objetivo não encontrado!");
-        }
-        return objetivo;
+        return objetivoDAO.buscarPorId(id);
     }
 
     public List<Objetivo> listarTodos() {
@@ -38,21 +29,11 @@ public class ObjetivoService {
         return objetivoDAO.buscarPorStatus(status);
     }
 
-    public void atualizar(Objetivo objetivo) {
-        try {
-            objetivoDAO.atualizar(objetivo);
-            System.out.println("Objetivo atualizado com sucesso!");
-        } catch (Exception e) {
-            System.out.println("Erro ao atualizar objetivo: " + e.getMessage());
-        }
+    public void atualizar(Objetivo objetivo) throws Exception {
+        objetivoDAO.atualizar(objetivo);
     }
 
-    public void deletar(Integer id) {
-        try {
-            objetivoDAO.deletar(id);
-            System.out.println("Objetivo deletado com sucesso!");
-        } catch (Exception e) {
-            System.out.println("Erro ao deletar objetivo: " + e.getMessage());
-        }
+    public void deletar(Integer id) throws Exception {
+        objetivoDAO.deletar(id);
     }
 }
