@@ -8,6 +8,7 @@ import br.inatel.service.HistoricoPrecoService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuHistorico {
@@ -63,7 +64,7 @@ public class MenuHistorico {
     }
 
     private void listarHistoricos() {
-        service.listarTodos();
+        exibirTabelaHistoricos(service.listarTodos());
     }
 
     private void buscarHistoricoPorData() {
@@ -72,9 +73,32 @@ public class MenuHistorico {
         String dataStr = scanner.nextLine();
         try {
             LocalDate data = LocalDate.parse(dataStr);
-            service.buscarPorData(data);
+            exibirTabelaHistoricos(service.buscarPorData(data));
         } catch (Exception e) {
             System.out.println("Formato de data inválido.");
+        }
+    }
+
+    private void exibirTabelaHistoricos(List<HistoricoPreco> historicos) {
+        if (historicos.isEmpty()) {
+            System.out.println("Nenhum histórico encontrado.");
+            return;
+        }
+
+        System.out.printf("\n%-5s | %-8s | %-12s | %-15s | %-15s | %-15s | %-15s | %-15s\n",
+                "ID", "ID Ativo", "Data", "Abertura", "Fechamento", "Máximo", "Mínimo", "Volume");
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------------------------------");
+        for (HistoricoPreco h : historicos) {
+            System.out.printf("%-5d | %-8d | %-12s | R$ %-12s | R$ %-12s | R$ %-12s | R$ %-12s | R$ %-12s\n",
+                    h.getIdHistorico(),
+                    h.getAtivo() != null ? h.getAtivo().getIdAtivo() : 0,
+                    h.getData(),
+                    h.getPrecoAbertura(),
+                    h.getPrecoFechamento(),
+                    h.getPrecoMaximo(),
+                    h.getPrecoMinimo(),
+                    h.getVolumeNegociado());
         }
     }
 
@@ -151,23 +175,28 @@ public class MenuHistorico {
 
         System.out.print("Novo Preço de Abertura (ou Enter para manter): ");
         String aberturaStr = scanner.nextLine();
-        if (!aberturaStr.trim().isEmpty()) historico.setPrecoAbertura(new BigDecimal(aberturaStr));
+        if (!aberturaStr.trim().isEmpty())
+            historico.setPrecoAbertura(new BigDecimal(aberturaStr));
 
         System.out.print("Novo Preço de Fechamento (ou Enter para manter): ");
         String fechamentoStr = scanner.nextLine();
-        if (!fechamentoStr.trim().isEmpty()) historico.setPrecoFechamento(new BigDecimal(fechamentoStr));
+        if (!fechamentoStr.trim().isEmpty())
+            historico.setPrecoFechamento(new BigDecimal(fechamentoStr));
 
         System.out.print("Novo Preço Máximo (ou Enter para manter): ");
         String maximoStr = scanner.nextLine();
-        if (!maximoStr.trim().isEmpty()) historico.setPrecoMaximo(new BigDecimal(maximoStr));
+        if (!maximoStr.trim().isEmpty())
+            historico.setPrecoMaximo(new BigDecimal(maximoStr));
 
         System.out.print("Novo Preço Mínimo (ou Enter para manter): ");
         String minimoStr = scanner.nextLine();
-        if (!minimoStr.trim().isEmpty()) historico.setPrecoMinimo(new BigDecimal(minimoStr));
+        if (!minimoStr.trim().isEmpty())
+            historico.setPrecoMinimo(new BigDecimal(minimoStr));
 
         System.out.print("Novo Volume Negociado (ou Enter para manter): ");
         String volumeStr = scanner.nextLine();
-        if (!volumeStr.trim().isEmpty()) historico.setVolumeNegociado(new BigDecimal(volumeStr));
+        if (!volumeStr.trim().isEmpty())
+            historico.setVolumeNegociado(new BigDecimal(volumeStr));
 
         service.atualizar(historico);
     }

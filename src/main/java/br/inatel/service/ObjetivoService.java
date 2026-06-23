@@ -30,52 +30,12 @@ public class ObjetivoService {
         return objetivo;
     }
 
-    public void listarTodos() {
-        System.out.println("\n--- Lista de Objetivos ---");
-        List<Objetivo> objetivos = objetivoDAO.listarTodos();
-
-        if (objetivos.isEmpty()) {
-            System.out.println("Nenhum objetivo cadastrado.");
-            return;
-        }
-
-        System.out.printf("%-5s | %-12s | %-15s | %-10s | %-15s | %-15s | %-25s\n",
-                "ID", "ID Carteira", "Meta Rent.", "Prazo", "Data Criação", "Status", "Descrição");
-        System.out.println("-----------------------------------------------------------------------------------------------------------------");
-        for (Objetivo o : objetivos) {
-            System.out.printf("%-5d | %-12d | %-15s | %-10d | %-15s | %-15s | %-25s\n",
-                    o.getIdObjetivo(),
-                    o.getCarteira() != null ? o.getCarteira().getIdCarteira() : 0,
-                    o.getMetaRentabilidade() != null ? o.getMetaRentabilidade() + "%" : "N/A",
-                    o.getPrazoMeses(),
-                    o.getDataCriacao(),
-                    o.getStatus(),
-                    o.getDescricao() != null ? o.getDescricao() : "");
-        }
+    public List<Objetivo> listarTodos() {
+        return objetivoDAO.listarTodos();
     }
 
-    public void buscarPorStatus(String status) {
-        System.out.println("\n--- Objetivos com status: " + status + " ---");
-        List<Objetivo> objetivos = objetivoDAO.buscarPorStatus(status);
-
-        if (objetivos.isEmpty()) {
-            System.out.println("Nenhum objetivo encontrado com esse status.");
-            return;
-        }
-
-        System.out.printf("%-5s | %-12s | %-15s | %-10s | %-15s | %-15s | %-25s\n",
-                "ID", "ID Carteira", "Meta Rent.", "Prazo", "Data Criação", "Status", "Descrição");
-        System.out.println("-----------------------------------------------------------------------------------------------------------------");
-        for (Objetivo o : objetivos) {
-            System.out.printf("%-5d | %-12d | %-15s | %-10d | %-15s | %-15s | %-25s\n",
-                    o.getIdObjetivo(),
-                    o.getCarteira() != null ? o.getCarteira().getIdCarteira() : 0,
-                    o.getMetaRentabilidade() != null ? o.getMetaRentabilidade() + "%" : "N/A",
-                    o.getPrazoMeses(),
-                    o.getDataCriacao(),
-                    o.getStatus(),
-                    o.getDescricao() != null ? o.getDescricao() : "");
-        }
+    public List<Objetivo> buscarPorStatus(String status) {
+        return objetivoDAO.buscarPorStatus(status);
     }
 
     public void atualizar(Objetivo objetivo) {

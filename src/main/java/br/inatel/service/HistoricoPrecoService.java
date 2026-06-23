@@ -31,54 +31,12 @@ public class HistoricoPrecoService {
         return historico;
     }
 
-    public void listarTodos() {
-        System.out.println("\n--- Lista de Históricos ---");
-        List<HistoricoPreco> historicos = historicoDAO.listarTodos();
-
-        if (historicos.isEmpty()) {
-            System.out.println("Nenhum histórico cadastrado.");
-            return;
-        }
-
-        System.out.printf("%-5s | %-8s | %-12s | %-15s | %-15s | %-15s | %-15s | %-15s\n",
-                "ID", "ID Ativo", "Data", "Abertura", "Fechamento", "Máximo", "Mínimo", "Volume");
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------");
-        for (HistoricoPreco h : historicos) {
-            System.out.printf("%-5d | %-8d | %-12s | R$ %-12s | R$ %-12s | R$ %-12s | R$ %-12s | R$ %-12s\n",
-                    h.getIdHistorico(),
-                    h.getAtivo() != null ? h.getAtivo().getIdAtivo() : 0,
-                    h.getData(),
-                    h.getPrecoAbertura(),
-                    h.getPrecoFechamento(),
-                    h.getPrecoMaximo(),
-                    h.getPrecoMinimo(),
-                    h.getVolumeNegociado());
-        }
+    public List<HistoricoPreco> listarTodos() {
+        return historicoDAO.listarTodos();
     }
 
-    public void buscarPorData(LocalDate data) {
-        System.out.println("\n--- Históricos em " + data + " ---");
-        List<HistoricoPreco> historicos = historicoDAO.buscarPorData(data);
-
-        if (historicos.isEmpty()) {
-            System.out.println("Nenhum histórico encontrado para esta data.");
-            return;
-        }
-
-        System.out.printf("%-5s | %-8s | %-12s | %-15s | %-15s | %-15s | %-15s | %-15s\n",
-                "ID", "ID Ativo", "Data", "Abertura", "Fechamento", "Máximo", "Mínimo", "Volume");
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------");
-        for (HistoricoPreco h : historicos) {
-            System.out.printf("%-5d | %-8d | %-12s | R$ %-12s | R$ %-12s | R$ %-12s | R$ %-12s | R$ %-12s\n",
-                    h.getIdHistorico(),
-                    h.getAtivo() != null ? h.getAtivo().getIdAtivo() : 0,
-                    h.getData(),
-                    h.getPrecoAbertura(),
-                    h.getPrecoFechamento(),
-                    h.getPrecoMaximo(),
-                    h.getPrecoMinimo(),
-                    h.getVolumeNegociado());
-        }
+    public List<HistoricoPreco> buscarPorData(LocalDate data) {
+        return historicoDAO.buscarPorData(data);
     }
 
     public void atualizar(HistoricoPreco historico) {
