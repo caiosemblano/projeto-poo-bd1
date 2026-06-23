@@ -151,6 +151,10 @@ public class InvestidorDAO implements Repositorio<Investidor, Integer> {
             investidor.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
         }
         investidor.setStatus(rs.getString("status"));
+
+        CarteiraDAO carteiraDAO = new CarteiraDAO();
+        investidor.setCarteiras(carteiraDAO.buscarPorInvestidor(investidor.getIdInvestidor()));
+
         return investidor;
     }
 }
